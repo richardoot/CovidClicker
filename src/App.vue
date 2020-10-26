@@ -1,17 +1,29 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
+    <div class="container-fluid">
+			<div class="row">
+
+        <Clicker />
+				<Units/>
+				<Shop/>
+
+      </div>
+		</div>
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import Clicker from './components/Clicker';
+import Units from './components/Units';
+import Shop from './components/Shop';
 
 export default {
   name: 'App',
   components: {
-    HelloWorld
+    Clicker,
+    Units,
+    Shop
   }
 }
 </script>
