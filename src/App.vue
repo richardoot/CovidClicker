@@ -1,15 +1,14 @@
 <template>
   <div id="app">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
-    <div class="container-fluid">
-			<div class="row">
+    <b-container fluid>
+      <b-row>
 
         <Clicker />
 				<Units/>
 				<Shop/>
+      </b-row>
+    </b-container>
 
-      </div>
-		</div>
   </div>
 </template>
 
