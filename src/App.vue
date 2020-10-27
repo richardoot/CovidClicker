@@ -3,9 +3,13 @@
     <b-container fluid>
       <b-row>
 
-        <Clicker />
+        <Clicker 
+          v-on:addClick="addClick"
+          v-bind:nbClick="nbClick"
+        />
 				<Units/>
 				<Shop/>
+        
       </b-row>
     </b-container>
 
@@ -13,6 +17,7 @@
 </template>
 
 <script>
+import store from "./store/store";
 import Clicker from './components/Clicker';
 import Units from './components/Units';
 import Shop from './components/Shop';
@@ -23,6 +28,17 @@ export default {
     Clicker,
     Units,
     Shop
+  },
+  methods:{
+    addClick: function(){
+      store.dispatch("addClickAction");
+    }
+  },
+  computed:{
+    nbClick: function(){
+      return store.getters.getNbClicks;
+    },
+    
   }
 }
 </script>
