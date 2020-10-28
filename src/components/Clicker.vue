@@ -1,10 +1,10 @@
 <template>
     <b-col class="vh-100" style="color: white; background-color: red;">
-        <a v-on:click="$emit('addClick')" href="#" style="display:block;width:100%;height:100%;text-decoration:none;color:white">
+        <a v-on:click="$emit('addMalade')" href="#" style="display:block;width:100%;height:100%;text-decoration:none;color:white">
             <h1>Component "Clicker"</h1>
             <b-row>
                 <b-col style="color: black; background-color: pink; margin:5px;">
-                    <h1>{{nbClick}}</h1>
+                    <h1>{{arrondirValeur(nbMalades)}} Malades</h1>
                 </b-col>
             </b-row>
             <b-row class="h-50">
@@ -20,8 +20,13 @@
 
 export default {
   props:[
-      'nbClick'
+      'nbMalades'
   ],
+  methods:{
+        arrondirValeur(valeur){
+            return Math.round(valeur)
+        }
+  }
 };
 </script>
 
@@ -34,9 +39,18 @@ export default {
     width: 300px;
     height: 300px;
     margin:-150px 0 0 -150px;
-    -webkit-animation:spin 30s linear infinite;
-    -moz-animation:spin 30s linear infinite;
-    animation:spin 30s linear infinite;
+    -webkit-animation:spin 50s linear infinite;
+    -moz-animation:spin 50s linear infinite;
+    animation:spin 50s linear infinite;
+}
+
+#imgCovid:active {
+    width: 280px;
+    height: 280px;
+    margin:-140px 0 0 -140px;
+    -webkit-animation:spin 50s linear infinite;
+    -moz-animation:spin 50s linear infinite;
+    animation:spin 50s linear infinite;
 }
 
 @-moz-keyframes spin { 
