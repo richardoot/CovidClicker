@@ -4,8 +4,8 @@
       <b-row>
 
         <Clicker 
-          v-on:addClick="addClick"
-          v-bind:nbClick="nbClick"
+          v-on:addMalade="addMalade"
+          v-bind:nbMalades="nbMalades"
         />
 				<Units/>
 				<Shop/>
@@ -30,16 +30,21 @@ export default {
     Shop
   },
   methods:{
-    addClick: function(){
-      store.dispatch("addClickAction");
-    }
+    addMalade: function(){
+      store.dispatch("addMaladeAction");
+    },
+
   },
   computed:{
-    nbClick: function(){
-      return store.getters.getNbClicks;
+    nbMalades: function(){
+      return store.getters.getNbMalades;
     },
-    
-  }
+  },
+  mounted:function(){
+    setInterval(() => {
+      store.dispatch('addMaladeAutoAction');
+    }, 100);
+  },
 }
 </script>
 
