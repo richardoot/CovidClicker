@@ -44,6 +44,18 @@ export default {
     animation:spin 50s linear infinite;
 }
 
+<<<<<<< HEAD
+=======
+/* #imgCovid:hover {
+    width: 280px;
+    height: 280px;
+    margin:-150px 0 0 -150px;
+    -webkit-animation: spin 50s alternate infinite;
+    -moz-animation: spin 50s alternate infinite;
+    animation: spin 50s alternate infinite;
+} */
+
+>>>>>>> 6502c89b8ff6e3dc7799b0fd5ebf3a5b5ed89a1b
 #imgCovid:active {
     width: 280px;
     height: 280px;
