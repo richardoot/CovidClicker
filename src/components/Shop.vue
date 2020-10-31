@@ -1,11 +1,11 @@
 <template>
-    <b-col style="color: white; background-color: blue;" >
+    <b-col id="shop">
         <h1>Component "Shop"</h1>
         <b-row>
-            <ShopItems/>
+            <ShopPowers/>
         </b-row>
         <b-row>
-            <ShopPowers/>
+            <ShopItems/>
         </b-row>
     </b-col>
 </template>
@@ -24,3 +24,12 @@ export default {
     ],
 };
 </script>
+
+<style>
+
+#shop{
+    /* color: white; */
+}
+
+
+</style>

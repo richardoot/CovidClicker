@@ -5,43 +5,63 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
     state: {
+        production_click: 5000,
+        production_per_sec:0,
         nb_malades:0, //nombre de malades
         items: [
-<<<<<<< HEAD
-            {id: 0, name: "pangolin",           price: 10,      number: 0, coeffPrice: 0.1,     production: 5},
-            {id: 1, name: "test défaillants",   price: 50,      number: 0, coeffPrice: 0.15,    production: 25},
-            {id: 2, name: "cluster",            price: 100,     number: 0, coeffPrice: 0.2,     production: 50},
-            {id: 3, name: "fêtes de Bayonne",   price: 1000,    number: 0, coeffPrice: 0.25,    production: 500}
-=======
-            {id: 0, name: "pangolin", price: 10, number: 0, coeffPrice: 0.2, production: 1},
-            {id: 1, name: "cluster", price: 100, number: 0, coeffPrice: 0.3, production: 10}
-            {id: 2, name: "fêtes de Bayonne", price: 1000, number: 0, coeffPrice: 0.5, production: 100}
->>>>>>> 6502c89b8ff6e3dc7799b0fd5ebf3a5b5ed89a1b
-        ] // ensemble des items
+            {id: 0, name: "Pangolin",           price: 10,      current_price:10,      number: 0,  coeffPrice: 1,    production: 0.5    },
+            {id: 1, name: "Test défaillants",   price: 100,     current_price:100,     number: 0,  coeffPrice: 1,    production: 3      },
+            {id: 2, name: "Cluster",            price: 500,     current_price:500,     number: 0,  coeffPrice: 1,    production: 6      },
+            {id: 3, name: "Fêtes de Bayonne",   price: 1000,    current_price:1000,    number: 0,  coeffPrice: 1,    production: 12     }
+        ], // ensemble des items
+        powers: [
+            {id: 0, name: "Double Clicker",                 price: 100,       actif: false,    coeff: 2,    item_id: null},
+            {id: 1, name: "Double Production Pangolin",     price: 10000,     actif: false,    coeff: 2,    item_id: 0},
+            {id: 2, name: "Double Production Cluster",      price: 50000,     actif: false,    coeff: 2,    item_id: 2},
+            {id: 3, name: "Double Alcool Fêtre de Bayonne", price: 100000,    actif: false,    coeff: 2,    item_id: 3}
+        ] // ensemble des pouvoirs
     },
     mutations: {
-        acheterItem(state,id){
-<<<<<<< HEAD
-            let coeffPrice_progression = 0.01;
-=======
-            let coeffPrice_progression = 0.05;
->>>>>>> 6502c89b8ff6e3dc7799b0fd5ebf3a5b5ed89a1b
-            let item = state.items[id]; 
-            if(state.nb_malades >= item.price){
-                item.number++; //Incrémente le nombre
-                state.nb_malades -= item.price; //Déduit le prix
-                item.price*=1+item.coeffPrice;
-                item.coeffPrice+=coeffPrice_progression;
+        acheterPower(state,id){
+            let power = state.powers[id];
+            if(state.nb_malades>=power.price){
+                state.nb_malades -= power.price; // Déduction du prix
+                power.actif = true;
+
+                
+                if(power.item_id>=0 && power.item_id !== null){
+                    console.log("L'item doublé par le pouvoir est : " + state.items[power.item_id].name + " son id est : " + power.item_id);
+                    let item = state.items[power.item_id];
+                    item.production*=power.coeff;
+                } else {
+                    state.production_click*=2;
+                }
             }
-            console.log("Vous avez: " + state.items[id].number + " " + state.items[id].name + "s");
+        },
+        updateItem(state,id){
+            let coeff_price_progression = 0.20;
+            let item = state.items[id]; 
+            if(state.nb_malades >= item.current_price){
+                state.nb_malades -= item.current_price; //Déduit le prix
+                item.number++; //Incrémente le nombre
+                item.coeffPrice+=coeff_price_progression; //Augmenter l'inflation du prix
+                item.current_price=item.price*item.coeffPrice;
+            }
+            // console.log("Vous avez: " + state.items[id].number + " " + state.items[id].name + "s");
+        },
+        updateProductionPerSec(state){
+            let somme = 0;
+            state.items.forEach(item => {
+                somme += item.number*item.production;
+            });
+
+            state.production_per_sec = somme;
         },
         addMalade(state){
-            state.nb_malades+=1000;
+            state.nb_malades+=state.production_click;
         },
         addMaladeAuto(state){
-            let somme = 0;
-            state.items.forEach(item => somme+= (item.production*item.number));
-            state.nb_malades+=somme/10;
+            state.nb_malades+=(state.production_per_sec/10);
         }
     },
     actions: {
@@ -49,9 +69,15 @@ export default new Vuex.Store({
             console.log("Incrément du nombre de malades");
             context.commit('addMalade');
         },
+        acheterPowerAction: function(context,id){
+            console.log("Vous avez acheté un Power avec l'id : " + id);
+            context.commit("acheterPower",id);
+            context.commit("updateProductionPerSec");
+        },
         acheterItemAction: function(context,id){
             console.log("Achat d'Item");
-            context.commit('acheterItem',id);
+            context.commit('updateItem',id);
+            context.commit('updateProductionPerSec');
         },
         addMaladeAutoAction: function(context){
             context.commit('addMaladeAuto');
@@ -63,6 +89,15 @@ export default new Vuex.Store({
         },
         getItems: function (state){
             return state.items;
+        },
+        getProductionClick: function (state) {
+            return state.production_click;
+        },
+        getProductionPerSec: function (state) {
+            return state.production_per_sec;
+        },
+        getPowers: function(state){
+            return state.powers;
         }
     }
 });

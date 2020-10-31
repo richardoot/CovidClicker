@@ -1,36 +1,51 @@
 <template>
-    <b-col class="vh-100" style="color: white; background-color: red;">
-        <a v-on:click="$emit('addMalade')" href="#" style="display:block;width:100%;height:100%;text-decoration:none;color:white">
+    <b-col id="clicker" class="vh-100">
             <h1>Component "Clicker"</h1>
             <b-row>
                 <b-col style="color: black; background-color: pink; margin:5px;">
                     <h1>{{arrondirValeur(nbMalades)}} Malades</h1>
+                    <h3>Malades/sec: {{productionPerSec}}</h3>
+                    <h3>Malades/click: {{productionClick}}</h3>
                 </b-col>
             </b-row>
             <b-row class="h-50">
-                <b-col style="color: black; background-color: yellow; margin:5px;">
-                    <b-img  id="imgCovid" :src="require('../assets/covid_1.png')"  fluid  alt="Image responsive"/>
+                <b-col style="color: black; background-color: pink; margin:5px;">
+                    <a v-on:click="$emit('addMalade')" href="#" style="display:block;width:100%;height:100%;text-decoration:none;color:white">
+                        <b-img  id="imgCovid" :src="require('../assets/covid_1.png')"  fluid  alt="Image responsive"/>
+                    </a>
                 </b-col>
             </b-row>
-        </a>
     </b-col>
 </template>
 
 <script>
+import store from '../store/store';
 
 export default {
   props:[
       'nbMalades'
   ],
   methods:{
-        arrondirValeur(valeur){
-            return Math.round(valeur)
-        }
+    arrondirValeur(valeur){
+        return Math.round(valeur)
+    }
+  },
+  computed:{
+      productionClick: function (){
+          return store.getters.getProductionClick;
+      },
+      productionPerSec: function (){
+          return store.getters.getProductionPerSec;
+      }
   }
 };
 </script>
 
 <style>
+
+#clicker{
+    /* color: white; */
+}
 
 #imgCovid {
     position: absolute;
@@ -44,18 +59,6 @@ export default {
     animation:spin 50s linear infinite;
 }
 
-<<<<<<< HEAD
-=======
-/* #imgCovid:hover {
-    width: 280px;
-    height: 280px;
-    margin:-150px 0 0 -150px;
-    -webkit-animation: spin 50s alternate infinite;
-    -moz-animation: spin 50s alternate infinite;
-    animation: spin 50s alternate infinite;
-} */
-
->>>>>>> 6502c89b8ff6e3dc7799b0fd5ebf3a5b5ed89a1b
 #imgCovid:active {
     width: 280px;
     height: 280px;
