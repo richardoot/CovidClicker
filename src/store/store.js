@@ -9,10 +9,10 @@ export default new Vuex.Store({
         production_per_sec:0,
         nb_malades:0, //nombre de malades
         items: [
-            {id: 0, name: "Pangolin",           price: 10,      current_price:10,      number: 0,  coeffPrice: 1,    production: 0.5    },
-            {id: 1, name: "Test défaillants",   price: 100,     current_price:100,     number: 0,  coeffPrice: 1,    production: 3      },
-            {id: 2, name: "Cluster",            price: 500,     current_price:500,     number: 0,  coeffPrice: 1,    production: 6      },
-            {id: 3, name: "Fêtes de Bayonne",   price: 1000,    current_price:1000,    number: 0,  coeffPrice: 1,    production: 12     }
+            {id: 0, name: "Pangolin",           price: 10,      number: 0,  coeffPrice: 0.25,    production: 0.5    },
+            {id: 1, name: "Test défaillants",   price: 100,     number: 0,  coeffPrice: 0.25,    production: 3      },
+            {id: 2, name: "Cluster",            price: 500,     number: 0,  coeffPrice: 0.25,    production: 6      },
+            {id: 3, name: "Fêtes de Bayonne",   price: 1000,    number: 0,  coeffPrice: 0.25,    production: 12     }
         ], // ensemble des items
         powers: [
             {id: 0, name: "Double Clicker",                 price: 100,       actif: false,    coeff: 2,    item_id: null},
@@ -39,13 +39,13 @@ export default new Vuex.Store({
             }
         },
         updateItem(state,id){
-            let coeff_price_progression = 0.20;
+            let coeff_regression = 0.99;
             let item = state.items[id]; 
-            if(state.nb_malades >= item.current_price){
-                state.nb_malades -= item.current_price; //Déduit le prix
+            if(state.nb_malades >= item.price){
+                state.nb_malades -= item.price; //Déduit le prix
                 item.number++; //Incrémente le nombre
-                item.coeffPrice+=coeff_price_progression; //Augmenter l'inflation du prix
-                item.current_price=item.price*item.coeffPrice;
+                item.price*=(1+item.coeffPrice);
+                item.coeffPrice*=coeff_regression; //Augmenter l'inflation du prix
             }
             // console.log("Vous avez: " + state.items[id].number + " " + state.items[id].name + "s");
         },

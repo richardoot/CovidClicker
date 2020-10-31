@@ -2,14 +2,14 @@
     <b-col style="color: black; background-color: grey;padding:10px">
         <b-list-group id="item" v-for="item in items" :key="item.id">
             
-            <b-list-group-item v-if="item.current_price <= nbMalades" button variant="success" v-on:click="acheterItem(item.id)">
+            <b-list-group-item v-if="item.price <= nbMalades" button variant="success" v-on:click="acheterItem(item.id)">
                 {{item.name}}: {{arrondirValeur(item.number)}}
-                <b-badge variant="success" pill>price : {{arrondirValeur(item.current_price)}}</b-badge>
+                <b-badge variant="success" pill>price : {{arrondirValeur(item.price)}}</b-badge>
             </b-list-group-item>
 
             <b-list-group-item v-else button disabled v-on:click="acheterItem(item.id)">
                 {{item.name}}: {{arrondirValeur(item.number)}}
-                <b-badge variant="danger" pill>price : {{arrondirValeur(item.current_price)}}</b-badge>
+                <b-badge variant="danger" pill>price : {{arrondirValeur(item.price)}}</b-badge>
             </b-list-group-item>
 
         </b-list-group>
