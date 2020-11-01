@@ -1,5 +1,5 @@
 <template>
-    <b-col style="color: black; background-color: grey;padding:10px">
+    <b-col style="color: black;padding:10px">
         <b-list-group id="item" v-for="item in items" :key="item.id">
             
             <b-list-group-item v-if="item.price <= nbMalades" button variant="success" v-on:click="acheterItem(item.id)">

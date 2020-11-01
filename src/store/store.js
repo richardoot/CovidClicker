@@ -9,10 +9,10 @@ export default new Vuex.Store({
         production_per_sec:0,
         nb_malades:0, //nombre de malades
         items: [
-            {id: 0, name: "Pangolin",           price: 10,      number: 0,  coeffPrice: 0.25,    production: 0.5    },
-            {id: 1, name: "Test défaillants",   price: 100,     number: 0,  coeffPrice: 0.25,    production: 3      },
-            {id: 2, name: "Cluster",            price: 500,     number: 0,  coeffPrice: 0.25,    production: 6      },
-            {id: 3, name: "Fêtes de Bayonne",   price: 1000,    number: 0,  coeffPrice: 0.25,    production: 12     }
+            {id: 0, name: "Pangolin",           price: 10,      number: 18,  coeffPrice: 0.25,    production: 0.5,    image:"pangolin-item.png"},
+            {id: 1, name: "Test défaillants",   price: 100,     number: 18,  coeffPrice: 0.25,    production: 3,      image:"test-tube.png"},
+            {id: 2, name: "Cluster",            price: 500,     number: 18,  coeffPrice: 0.25,    production: 6,      image:"cluster.png"},
+            {id: 3, name: "Fêtes de Bayonne",   price: 1000,    number: 18,  coeffPrice: 0.25,    production: 12,     image:"party.png"}
         ], // ensemble des items
         powers: [
             {id: 0, name: "Double Clicker",                 price: 100,       actif: false,    coeff: 2,    item_id: null},
