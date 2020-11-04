@@ -3,7 +3,7 @@
         <h1>Component "Units"</h1>
         <b-row>
             <b-col id="unit-container" cols="12" v-for="item in items" :key="item.id" style="color: black; background-color: white;margin-bottom: 5px;">
-                <p style="text-align:left">{{item.name}}:</p>
+                <p style="text-align:left">{{item.name}}: {{item.number}}</p>
                 <template v-for="n in item.number">
                     <b-img :style="`top:${40+((n-1)%5)*20}px;left:${(6*(n-1))}px`" :key="n" :id="`unit-image`" :src="require(`@/assets/${item.image}`)"></b-img>
                     <!-- <b-img v-if="(n%5) == 2" :style="`top:60px;left:${(6*(n-1))}px`" :key="n" :id="`unit-image`" :src="require(`@/assets/${item.image}`)"></b-img>
