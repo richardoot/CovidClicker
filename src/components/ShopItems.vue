@@ -21,7 +21,7 @@ import store from '../store/store';
 
 export default {
     props:[
-        
+        "items2"
     ],
     methods:{
         acheterItem: function(id){
