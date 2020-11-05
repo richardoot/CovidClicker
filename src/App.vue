@@ -7,8 +7,12 @@
           v-on:addMalade="addMalade"
           v-bind:nbMalades="nbMalades"
         />
-				<Units/>
-				<Shop/>
+				<Units
+          v-bind:items="items"
+        />
+				<Shop
+          v-bind:items="items"
+        />
         
       </b-row>
     </b-container>
@@ -24,6 +28,16 @@ import Shop from './components/Shop';
 
 export default {
   name: 'App',
+  data: function(){
+      return {
+          items: [
+              {id: 0,     name: "Pangolin",             image:"pangolin-item.png"   },
+              {id: 1,     name: "Test défaillant",      image:"test-tube.png"       },
+              {id: 2,     name: "Cluster",              image:"cluster.png"         },
+              {id: 3,     name: "Fêtes de Bayonne",     image:"party.png"           }
+          ],
+      }
+  },
   components: {
     Clicker,
     Units,
@@ -33,7 +47,6 @@ export default {
     addMalade: function(){
       store.dispatch("addMaladeAction");
     },
-
   },
   computed:{
     nbMalades: function(){

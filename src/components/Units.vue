@@ -2,7 +2,7 @@
     <b-col style="color: white; background-color: grey;" > <!-- v-on:click="" -->
         <h1>Component "Units"</h1>
         <b-row>
-            <b-col id="unit-container" cols="12" v-for="item in items" :key="item.id" style="color: black; background-color: white;margin-bottom: 5px;">
+            <b-col id="unit-container" cols="12" v-for="item in addDynamicsValue()" :key="item.id" style="color: black; background-color: white;margin-bottom: 5px;">
                 <p style="text-align:left">{{item.name}}: {{item.number}}</p>
                 <template v-for="n in item.number">
                     <b-img :style="`top:${40+((n-1)%5)*20}px;left:${(6*(n-1))}px`" :key="n" :id="`unit-image`" :src="require(`@/assets/${item.image}`)"></b-img>
@@ -20,10 +20,28 @@
 import store from "../store/store";
 
 export default {
-    computed: {
-        items: function(){
-            return store.getters.getItems;
-        }
+    props: [
+        "items"
+    ],
+    methods:{
+        addDynamicsValue: function(){
+            let dynamicItems = this.itemsDynamicsValue;
+            this.items.forEach( item => {
+                dynamicItems.forEach( dynamicItem => {
+                    if(item.id === dynamicItem.id){
+                        item.price = dynamicItem.price;
+                        item.number = dynamicItem.number;
+                    }
+                })
+            });
+
+            return this.items;
+        },
+    },
+    computed:{
+        itemsDynamicsValue: function(){
+            return store.getters.getItemsDynamicsValue;
+        },
     }
 }
 </script>

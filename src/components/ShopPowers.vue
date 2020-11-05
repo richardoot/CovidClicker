@@ -18,6 +18,9 @@
 <script>
 import store from '../store/store';
 export default {
+    props:[
+        "items"
+    ],
     data: function () {
         return{
             powers2: [
@@ -29,43 +32,41 @@ export default {
         }
     },
     methods:{
-        activePower: function (id) {
-            store.dispatch("activePowerAction",id);
-        },
-        removeMalades: function (price) {
-            store.dispatch("removeMaladesAction",price);
-        },
-        increaseProductionClick: function (coeff) {
-            store.dispatch("increaseProductionClickAction",coeff);
-        },
         acheterPower: function(id){
             let power = this.powers2[id];
             if(this.nbMalades>=power.price){
-                this.removeMalades(power.price) // Déduction du prix
-                this.activePower(power.id); 
-
+                store.dispatch("acheterPowerAction",power);
                 
                 if(power.item_id>=0 && power.item_id !== null){
-                    // console.log("L'item doublé par le pouvoir est : " + state.items[power.item_id].name + " son id est : " + power.item_id);
-                    // let item = state.items[power.item_id];
-                    // item.production*=power.coeff;
+                    store.dispatch("increaseProductionItemAction",power);
                 } else {
-                    this.increaseProductionClick(power.coeff);
+                    store.dispatch("increaseProductionClickAction",power.coeff);
                 }
             }
         },
         isPowerActivated: function (id) {
-            let i = 0;
             let thePower;
             this.powersActivities.forEach(power => {
                 if(power.id === id){
-                    console.log(i +" On the print the bool is : " + power.actif );
                     thePower = power;
                 }
-                i++;
             })
             return thePower.actif;
-        }
+        },
+        addDynamicsValue: function(){
+            let dynamicItems = this.itemsDynamicsValue;
+            this.items.forEach( item => {
+                dynamicItems.forEach( dynamicItem => {
+                    if(item.id === dynamicItem.id){
+                        item.price = dynamicItem.price;
+                        item.number = dynamicItem.number;
+                        item.production = dynamicItem.production;
+                    }
+                })
+            });
+
+            return this.items;
+        },
     },
     computed:{
         nbMalades: function () {
@@ -73,6 +74,9 @@ export default {
         },
         powersActivities: function () {
             return store.getters.getPowersActivities;
+        },
+        itemsDynamicsValue: function(){
+            return store.getters.getItemsDynamicsValue;
         },
     }
 }

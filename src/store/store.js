@@ -5,62 +5,66 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
     state: {
-        production_click: 1000,
-        production_per_sec:0,
-        nb_malades:0, //nombre de malades
         userData:{
+            nb_malades:0, //nombre de malades
+            production_click: 1000,
+            production_per_sec:0,
             items:[
-                {id: 0, number: 0, coeffPrice: 0.25, production: 0.5 },
-                {id: 1, number: 0, coeffPrice: 0.25, production: 3   },
-                {id: 2, number: 0, coeffPrice: 0.25, production: 6   },
-                {id: 3, number: 0, coeffPrice: 0.25, production: 12  },
+                {id: 0,   price: 10,    number: 0,  coeffPrice: 0.25,  production: 0.5  },
+                {id: 1,   price: 100,   number: 0,  coeffPrice: 0.25,  production: 3    },
+                {id: 2,   price: 500,   number: 0,  coeffPrice: 0.25,  production: 6    },
+                {id: 3,   price: 1000,  number: 0,  coeffPrice: 0.25,  production: 12   },
             ],
             powers:[
-                {id: 0, actif: false },
-                {id: 1, actif: false },
-                {id: 2, actif: false },
-                {id: 3, actif: false },
+                {id: 0,   actif: false   },
+                {id: 1,   actif: false   },
+                {id: 2,   actif: false   },
+                {id: 3,   actif: false   },
             ]
         },
-        items: [
-            {id: 0, name: "Pangolin",           price: 10,      number: 0,  coeffPrice: 0.25,    production: 0.5,    image:"pangolin-item.png"},
-            {id: 1, name: "Test défaillant",    price: 100,     number: 0,  coeffPrice: 0.25,    production: 3,      image:"test-tube.png"},
-            {id: 2, name: "Cluster",            price: 500,     number: 0,  coeffPrice: 0.25,    production: 6,      image:"cluster.png"},
-            {id: 3, name: "Fêtes de Bayonne",   price: 1000,    number: 0,  coeffPrice: 0.25,    production: 12,     image:"party.png"}
-        ], // ensemble des items
     },
     mutations: {
         addMalade(state){
-            state.nb_malades+=state.production_click;
+            state.userData.nb_malades+=state.userData.production_click;
         },
         removeMalades(state, price){
-            state.nb_malades -= price;
+            state.userData.nb_malades -= price;
         },
         addMaladeAuto(state){
-            state.nb_malades+=(state.production_per_sec/10);
+            state.userData.nb_malades+=(state.userData.production_per_sec/10);
         },
         activePower(state, id){
             state.userData.powers.forEach( power => {
                 if(power.id === id){
-                    console.log("The id is : " + power.id + " and the bool is : " + power.actif);
                     power.actif = true;
-                    console.log("And now the bool is : " + power.actif);
                 }
             })
         },
         increaseProductionClick(state, coeff){
-            state.production_click*=coeff;
+            state.userData.production_click*=coeff;
         },
-
-
-
-
-        //A modifier
+        increaseProductionItem(state, power){
+            state.userData.items.forEach(i => {
+                if(i.id === power.item_id){
+                    console.log(i);
+                    console.log(i.production);
+                    console.log(power.coeff);
+                    i.production*=power.coeff;
+                }
+            });
+        },
         updateItem(state,id){
             let coeff_regression = 0.99;
-            let item = state.items[id]; 
-            if(state.nb_malades >= item.price){
-                state.nb_malades -= item.price; //Déduit le prix
+            let item = {};
+            
+            state.userData.items.forEach(i => {
+                if(i.id === id){
+                    item = i;
+                }
+            });
+
+            if(state.userData.nb_malades >= item.price){
+                state.userData.nb_malades -= item.price; //Déduit le prix
                 item.number++; //Incrémente le nombre
                 item.price*=(1+item.coeffPrice);
                 item.coeffPrice*=coeff_regression; //Augmenter l'inflation du prix
@@ -69,20 +73,19 @@ export default new Vuex.Store({
         },
         updateProductionPerSec(state){
             let somme = 0;
-            state.items.forEach(item => {
+            state.userData.items.forEach(item => {
                 somme += item.number*item.production;
             });
 
-            state.production_per_sec = somme;
+            state.userData.production_per_sec = somme;
         },
     },
     actions: {
         addMaladeAction: function(context){
-            console.log("Incrément du nombre de malades");
+            // console.log("Incrément du nombre de malades");
             context.commit('addMalade');
         },
         removeMaladesAction: function(context, price){
-            console.log("Vous avez payé la somme de : " + price + " malades");
             context.commit('removeMalades', price);
         },
         activePowerAction: function (context, id) {
@@ -92,42 +95,45 @@ export default new Vuex.Store({
         increaseProductionClickAction: function(context, coeff){
             context.commit("increaseProductionClick",coeff);
         },
+        increaseProductionItemAction: function(context, power){
+            context.commit("increaseProductionItem",power);
+            context.commit("updateProductionPerSec");
+        },
+        addMaladeAutoAction: function(context){
+            context.commit('addMaladeAuto');
+        },
+        acheterPowerAction: function(context,power){
+            console.log("Updating...");
+            context.commit("removeMalades",power.price);
+            context.commit("activePower",power.id);
+            // context.commit("increaseProductionItem",power);
+            // context.commit("updateProductionPerSec");
+        },
 
 
 
         // A Modifier
-        acheterPowerAction: function(context,id){
-            console.log("Vous avez acheté un Power avec l'id : " + id);
-            context.commit("acheterPower",id);
-            context.commit("updateProductionPerSec");
-        },
         acheterItemAction: function(context,id){
             console.log("Achat d'Item");
             context.commit('updateItem',id);
             context.commit('updateProductionPerSec');
         },
-        addMaladeAutoAction: function(context){
-            context.commit('addMaladeAuto');
-        },
     },
     getters: {
         getNbMalades: function (state) {
-            return state.nb_malades;
-        },
-        getItems: function (state){
-            return state.items;
+            return state.userData.nb_malades;
         },
         getProductionClick: function (state) {
-            return state.production_click;
+            return state.userData.production_click;
         },
         getProductionPerSec: function (state) {
-            return state.production_per_sec;
-        },
-        getPowers: function(state){
-            return state.powers;
+            return state.userData.production_per_sec;
         },
         getPowersActivities: function(state){
             return state.userData.powers;
+        },
+        getItemsDynamicsValue: function(state){
+            return state.userData.items;
         },
     }
 });
