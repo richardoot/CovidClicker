@@ -1,18 +1,22 @@
 <template>
-    <b-col id="clicker" class="vh-100">
-            <h1>Component "Clicker"</h1>
+    <b-col cols="3" id="clicker-container">
+            <h1>COVID-19</h1>
             <b-row>
-                <b-col style="color: black; background-color: pink; margin:5px;">
+                <b-col id="clicker_container_counter">
                     <h1>{{arrondirValeur(nbMalades)}} Malades</h1>
-                    <h3>Malades/sec: {{productionPerSec}}</h3>
-                    <h3>Malades/click: {{productionClick}}</h3>
                 </b-col>
             </b-row>
             <b-row class="h-50">
-                <b-col style="color: black; background-color: pink; margin:5px;">
+                <b-col id="clicker_cointainer_img">
                     <a v-on:click="$emit('addMalade')" href="#" style="display:block;width:100%;height:100%;text-decoration:none;color:white">
                         <b-img  id="imgCovid" :src="require('../assets/covid_1.png')"  fluid  alt="Image responsive"/>
                     </a>
+                </b-col>
+            </b-row>
+            <b-row>
+                <b-col id="clicker_container_description">
+                    <h3>Malades/sec: {{productionPerSec}}</h3>
+                    <h3>Malades/click: {{productionClick}}</h3>
                 </b-col>
             </b-row>
     </b-col>
@@ -43,8 +47,23 @@ export default {
 
 <style>
 
-#clicker{
-    /* color: white; */
+#clicker-container{
+    height: 94vh;
+    background-color: rgba(91,84,84, 0.5);
+    border-radius: 30px;
+    color: white;
+    margin: 0 30px 0 0;
+}
+
+#clicker_container_counter, #clicker_container_description{
+    /* background-color: rgba(255,192,203,0.5);  */
+    margin:5px;
+}
+
+#clicker_cointainer_img{
+    /* color: black;  */
+    /* background-color: rgba(255,192,203,0.5);  */
+    margin:5px;
 }
 
 #imgCovid {

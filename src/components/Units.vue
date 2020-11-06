@@ -1,11 +1,11 @@
 <template>
-    <b-col style="color: white; background-color: grey;" > <!-- v-on:click="" -->
-        <h1>Component "Units"</h1>
+    <b-col cols="5" id="units-container">
+        <h1>Units</h1>
         <b-row>
-            <b-col id="unit-container" cols="12" v-for="item in addDynamicsValue()" :key="item.id" style="color: black; background-color: white;margin-bottom: 5px;">
+            <b-col id="units-single-container" cols="12" v-for="item in addDynamicsValue()" :key="item.id">
                 <p style="text-align:left">{{item.name}}: {{item.number}}</p>
                 <template v-for="n in item.number">
-                    <b-img :style="`top:${40+((n-1)%5)*20}px;left:${(6*(n-1))}px`" :key="n" :id="`unit-image`" :src="require(`@/assets/${item.image}`)"></b-img>
+                    <b-img :style="`top:${30+((n-1)%5)*20}px;left:${(6*n)+10}px`" :key="n" :id="`unit-image`" :src="require(`@/assets/${item.image}`)"></b-img>
                     <!-- <b-img v-if="(n%5) == 2" :style="`top:60px;left:${(6*(n-1))}px`" :key="n" :id="`unit-image`" :src="require(`@/assets/${item.image}`)"></b-img>
                     <b-img v-if="(n%5) == 3" :style="`top:80px;left:${(6*(n-1))}px`" :key="n" :id="`unit-image`" :src="require(`@/assets/${item.image}`)"></b-img>
                     <b-img v-if="(n%5) == 4" :style="`top:100px;left:${(6*(n-1))}px`" :key="n" :id="`unit-image`" :src="require(`@/assets/${item.image}`)"></b-img>
@@ -35,7 +35,7 @@ export default {
                 })
             });
 
-            return this.items;
+            return this.items.filter(item => item.number>0);
         },
     },
     computed:{
@@ -45,9 +45,20 @@ export default {
 </script>
 
 <style>
-    #unit-container{
+    #units-container{
+        height: 94vh;
+        background-color: rgba(91,84,84, 0.5);
+        border-radius: 30px;
+        color: white;
+        padding: 0 25px 0 25px;
+        overflow: auto;
+    }
+    #units-single-container{
+        background-color: rgba(255, 255, 255, 0.1);
         position: relative;
         height: 150px;
+        margin-bottom: 5px;
+        overflow: auto;
     }
     #unit-image{
         width: 40px;

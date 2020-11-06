@@ -10,10 +10,10 @@ export default new Vuex.Store({
             production_click: 1000000,
             production_per_sec:0,
             items:[
-                {id: 0,   price: 10,    number: 70,  coeffPrice: 0.25,  production: 0.5  },
-                {id: 1,   price: 100,   number: 70,  coeffPrice: 0.25,  production: 3    },
-                {id: 2,   price: 500,   number: 70,  coeffPrice: 0.25,  production: 6    },
-                {id: 3,   price: 1000,  number: 70,  coeffPrice: 0.25,  production: 12   },
+                {id: 0,   price: 10,    number: 0,  coeffPrice: 0.25,  production: 0.5  },
+                {id: 1,   price: 100,   number: 0,  coeffPrice: 0.25,  production: 3    },
+                {id: 2,   price: 500,   number: 0,  coeffPrice: 0.25,  production: 6    },
+                {id: 3,   price: 1000,  number: 0,  coeffPrice: 0.25,  production: 12   },
             ],
             powers:[
                 {id: 0,   actif: false   },

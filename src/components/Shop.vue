@@ -1,6 +1,6 @@
 <template>
-    <b-col id="shop">
-        <h1>Component "Shop"</h1>
+    <b-col cols="3" id="shop-container">
+        <h1>Shop</h1>
         <b-row>
             <ShopPowers
                 v-bind:items="items"
@@ -33,8 +33,12 @@ export default {
 
 <style>
 
-#shop{
-    /* color: white; */
+#shop-container{
+    height: 94vh;
+    background-color: rgba(91,84,84, 0.5);
+    border-radius: 30px;
+    color: white;
+    margin: 0 0 0 30px;
 }
 
 

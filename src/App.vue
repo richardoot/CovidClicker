@@ -1,7 +1,8 @@
 <template>
   <div id="app">
+    <div id="backbround_img"></div>
     <b-container fluid>
-      <b-row>
+      <b-row align-h = "center" >
 
         <Clicker 
           v-on:addMalade="addMalade"
@@ -68,7 +69,19 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  /* margin-top: 60px; */
+  background-color: rgb(29,29,29);
+  padding: 3vh;
+}
+
+#backbround_img{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50% ,-50%);
+  width: 100%;
+  height: 100%;
+  background-image: url("./assets/map.png");
+  opacity: 0.15;
 }
 
 </style>
