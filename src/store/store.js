@@ -7,13 +7,13 @@ export default new Vuex.Store({
     state: {
         userData:{
             nb_malades:0, //nombre de malades
-            production_click: 1000,
+            production_click: 1000000,
             production_per_sec:0,
             items:[
-                {id: 0,   price: 10,    number: 0,  coeffPrice: 0.25,  production: 0.5  },
-                {id: 1,   price: 100,   number: 0,  coeffPrice: 0.25,  production: 3    },
-                {id: 2,   price: 500,   number: 0,  coeffPrice: 0.25,  production: 6    },
-                {id: 3,   price: 1000,  number: 0,  coeffPrice: 0.25,  production: 12   },
+                {id: 0,   price: 10,    number: 70,  coeffPrice: 0.25,  production: 0.5  },
+                {id: 1,   price: 100,   number: 70,  coeffPrice: 0.25,  production: 3    },
+                {id: 2,   price: 500,   number: 70,  coeffPrice: 0.25,  production: 6    },
+                {id: 3,   price: 1000,  number: 70,  coeffPrice: 0.25,  production: 12   },
             ],
             powers:[
                 {id: 0,   actif: false   },
@@ -106,13 +106,7 @@ export default new Vuex.Store({
             console.log("Updating...");
             context.commit("removeMalades",power.price);
             context.commit("activePower",power.id);
-            // context.commit("increaseProductionItem",power);
-            // context.commit("updateProductionPerSec");
         },
-
-
-
-        // A Modifier
         acheterItemAction: function(context,id){
             console.log("Achat d'Item");
             context.commit('updateItem',id);

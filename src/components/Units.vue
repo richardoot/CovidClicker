@@ -25,7 +25,7 @@ export default {
     ],
     methods:{
         addDynamicsValue: function(){
-            let dynamicItems = this.itemsDynamicsValue;
+            let dynamicItems = store.getters.getItemsDynamicsValue;
             this.items.forEach( item => {
                 dynamicItems.forEach( dynamicItem => {
                     if(item.id === dynamicItem.id){
@@ -39,9 +39,7 @@ export default {
         },
     },
     computed:{
-        itemsDynamicsValue: function(){
-            return store.getters.getItemsDynamicsValue;
-        },
+        
     }
 }
 </script>

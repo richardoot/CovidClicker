@@ -53,20 +53,6 @@ export default {
             })
             return thePower.actif;
         },
-        addDynamicsValue: function(){
-            let dynamicItems = this.itemsDynamicsValue;
-            this.items.forEach( item => {
-                dynamicItems.forEach( dynamicItem => {
-                    if(item.id === dynamicItem.id){
-                        item.price = dynamicItem.price;
-                        item.number = dynamicItem.number;
-                        item.production = dynamicItem.production;
-                    }
-                })
-            });
-
-            return this.items;
-        },
     },
     computed:{
         nbMalades: function () {
@@ -74,9 +60,6 @@ export default {
         },
         powersActivities: function () {
             return store.getters.getPowersActivities;
-        },
-        itemsDynamicsValue: function(){
-            return store.getters.getItemsDynamicsValue;
         },
     }
 }
