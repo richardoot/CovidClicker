@@ -1,6 +1,6 @@
 <template>
-    <b-col cols="3" id="clicker-container">
-            <h1>COVID-19</h1>
+    <b-col md="3" id="clicker-container">
+            <h1 style="margin-top: 20px">COVID-19</h1>
             <b-row>
                 <b-col id="clicker_container_counter">
                     <h1>{{arrondirValeur(nbMalades)}} Malades</h1>
@@ -79,12 +79,62 @@ export default {
 }
 
 #imgCovid:active {
-    width: 280px;
-    height: 280px;
-    margin:-140px 0 0 -140px;
-    -webkit-animation:spin 50s linear infinite;
-    -moz-animation:spin 50s linear infinite;
-    animation:spin 50s linear infinite;
+    animation: spin 50s linear infinite, begin-bounce 0.2s ease 1;
+    width: 250px;
+    height: 250px;
+    margin:-125px 0 0 -125px;
+}
+
+#imgCovid:not(:active) {
+    animation: spin 50s linear infinite, end-bounce 0.2s ease 1;
+    width: 300px;
+    height: 300px;
+    margin:-150px 0 0 -150px;
+}
+
+@keyframes begin-bounce {
+    0%{    
+        width: 300px;
+        height: 300px;
+        margin:-150px 0 0 -150px;
+    }
+    40%{
+        width: 230px;
+        height: 230px;
+        margin:-115px 0 0 -115px;
+    }
+    70%{
+        width: 270px;
+        height: 270px;
+        margin:-135px 0 0 -135px;
+    }
+    100%{
+        width: 250px;
+        height: 250px;
+        margin:-125px 0 0 -125px;
+    }
+}
+@keyframes end-bounce {
+    from{
+        width: 250px;
+        height: 250px;
+        margin:-125px 0 0 -125px;
+    }
+    40%{
+        width: 310px;
+        height: 310px;
+        margin:-155px 0 0 -155px;
+    }
+    80%{
+        width: 290px;
+        height: 290px;
+        margin:-145px 0 0 -145px;
+    }
+    to{    
+        width: 300px;
+        height: 300px;
+        margin:-150px 0 0 -150px;
+    }
 }
 
 @-moz-keyframes spin { 

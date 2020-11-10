@@ -1,6 +1,6 @@
 <template>
-    <b-col cols="3" id="shop-container">
-        <h1>Shop</h1>
+    <b-col md="3" id="shop-container">
+        <h1 style="margin-top: 20px">Shop</h1>
         <b-row>
             <ShopPowers
                 v-bind:items="items"
@@ -40,6 +40,34 @@ export default {
     color: white;
     margin: 0 0 0 30px;
 }
+
+    .s-item{
+       border-radius: 0px;
+       margin: 2px 0 2px 0;
+       font-weight: bold;
+    }
+    .s-item:focus {
+        outline:0;
+    }
+
+    #s-available{
+       background-color: rgba(255, 255, 255, 0.1);
+       color: rgb(85, 180, 82)
+    }
+    #s-available:hover{
+       border:3px solid rgba(210, 214, 183, 0.767);
+       margin: 0px;
+    }
+    #s-available:active{
+        background-color: rgba(210, 214, 183, 0.3);
+    }
+
+    #s-disable{
+        background-color: rgba(204, 78, 56, 0.1);
+    }
+    #s-disable:active{
+        background-color: rgba(204, 78, 56, 0.3);
+    }
 
 
 </style>

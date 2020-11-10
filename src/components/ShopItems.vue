@@ -2,12 +2,12 @@
     <b-col style="color: black;padding:10px">
         <b-list-group id="item" v-for="item in addDynamicsValue()" :key="item.id">
             
-            <b-list-group-item v-if="item.price <= nbMalades" button variant="success" v-on:click="acheterItem(item.id)">
+            <b-list-group-item id="s-available" class="s-item" v-if="item.price <= nbMalades" button variant="success" v-on:click="acheterItem(item.id)">
                 {{item.name}}: {{arrondirValeur(item.number)}}
                 <b-badge variant="success" pill>price : {{arrondirValeur(item.price)}}</b-badge>
             </b-list-group-item>
 
-            <b-list-group-item v-else button disabled v-on:click="acheterItem(item.id)">
+            <b-list-group-item id="s-disable" class="s-item" v-else button disabled v-on:click="acheterItem(item.id)">
                 {{item.name}}: {{arrondirValeur(item.number)}}
                 <b-badge variant="danger" pill>price : {{arrondirValeur(item.price)}}</b-badge>
             </b-list-group-item>
@@ -51,10 +51,3 @@ export default {
     },
 }
 </script>
-
-<style>
-    #s-item{
-       border-radius: 0px;
-       background-color: black;
-    }
-</style>
