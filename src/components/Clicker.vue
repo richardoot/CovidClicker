@@ -1,5 +1,5 @@
 <template>
-    <b-col md="3" id="clicker-container">
+    <b-col lg="3" sm="6" order-lg="1" id="clicker-container" class="component-container">
             <h1 style="margin-top: 20px">COVID-19</h1>
             <b-row>
                 <b-col id="clicker_container_counter">
@@ -46,23 +46,24 @@ export default {
 </script>
 
 <style>
-
-#clicker-container{
-    height: 94vh;
-    background-color: rgba(91,84,84, 0.5);
-    border-radius: 30px;
-    color: white;
-    margin: 0 30px 0 0;
+@media only screen and (min-width:992px) {
+    #clicker-container{
+        margin: 0 30px 0 0;
+    }
+}
+@media only screen and (max-width:992px) and (min-width:576px){
+    #clicker-container{
+        transform: translateX(-7.5px);
+        margin-bottom: 10px;
+    }
 }
 
+
 #clicker_container_counter, #clicker_container_description{
-    /* background-color: rgba(255,192,203,0.5);  */
     margin:5px;
 }
 
 #clicker_cointainer_img{
-    /* color: black;  */
-    /* background-color: rgba(255,192,203,0.5);  */
     margin:5px;
 }
 
@@ -70,70 +71,70 @@ export default {
     position: absolute;
     top: 50%;
     left: 50%;
-    width: 300px;
-    height: 300px;
-    margin:-150px 0 0 -150px;
+    width: 80%;
+    height: auto;
+    margin:-40% 0 0 -40%;
     -webkit-animation:spin 50s linear infinite;
-    -moz-animation:spin 50s linear infinite;
-    animation:spin 50s linear infinite;
+    -moz-animation:spin 1s linear infinite;
+    animation:spin 1s linear infinite;
 }
 
 #imgCovid:active {
     animation: spin 50s linear infinite, begin-bounce 0.2s ease 1;
-    width: 250px;
-    height: 250px;
-    margin:-125px 0 0 -125px;
+    width: 66.5%;
+    height: auto;
+    margin:-33.25% 0 0 -33.25%;
 }
 
 #imgCovid:not(:active) {
     animation: spin 50s linear infinite, end-bounce 0.2s ease 1;
-    width: 300px;
-    height: 300px;
-    margin:-150px 0 0 -150px;
+    width: 80%;
+    height: auto;
+    margin:-40% 0 0 -40%;
 }
 
 @keyframes begin-bounce {
     0%{    
-        width: 300px;
-        height: 300px;
-        margin:-150px 0 0 -150px;
+        width: 80%;
+        height: auto;
+        margin:-40% 0 0 -40%;
     }
     40%{
-        width: 230px;
-        height: 230px;
-        margin:-115px 0 0 -115px;
+        width: 61.33%;
+        height: auto;
+        margin:-30.66% 0 0 -30.66%;
     }
     70%{
-        width: 270px;
-        height: 270px;
-        margin:-135px 0 0 -135px;
+        width: 72%;
+        height: auto;
+        margin:-36% 0 0 -36%;
     }
     100%{
-        width: 250px;
-        height: 250px;
-        margin:-125px 0 0 -125px;
+        width: 66.5%;
+        height: auto;
+        margin:-33.25% 0 0 -33.25%;
     }
 }
 @keyframes end-bounce {
     from{
-        width: 250px;
-        height: 250px;
-        margin:-125px 0 0 -125px;
+        width: 66.5%;
+        height: auto;
+        margin:-33.25% 0 0 -33.25%;
     }
     40%{
-        width: 310px;
-        height: 310px;
-        margin:-155px 0 0 -155px;
+        width: 82.66%;
+        height: auto;
+        margin:-41.33% 0 0 -41.33%;
     }
     80%{
-        width: 290px;
-        height: 290px;
-        margin:-145px 0 0 -145px;
+        width: 77.33%;
+        height: auto;
+        margin:-38.66% 0 0 -38.66%;
     }
     to{    
-        width: 300px;
-        height: 300px;
-        margin:-150px 0 0 -150px;
+        width: 80%;
+        height: auto;
+        margin:-40% 0 0 -40%;
     }
 }
 

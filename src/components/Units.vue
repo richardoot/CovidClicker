@@ -1,5 +1,5 @@
 <template>
-    <b-col md="5" id="units-container">
+    <b-col lg="5" sm="12" order-lg="2" id="units-container" class="component-container">
         <h1 style="margin-top: 20px">Units</h1>
         <b-row>
             <b-col id="units-single-container" cols="12" v-for="item in addDynamicsValue()" :key="item.id">
@@ -46,24 +46,26 @@ export default {
 
 <style>
     #units-container{
-        height: 94vh;
-        background-color: rgba(91,84,84, 0.5);
-        border-radius: 30px;
-        color: white;
-        padding: 0 25px 0 25px;
         overflow: auto;
+        
+        /* CEFDLT */
+        padding: 0 25px 0 25px; 
     }
     #units-single-container{
         background-color: rgba(255, 255, 255, 0.1);
         position: relative;
-        height: 150px;
         margin-bottom: 5px;
         overflow: auto;
+
+        /* CEFDLT */
+        height: 150px; 
     }
     #unit-image{
-        width: 40px;
         position: absolute;
         top: 30px;
         left: 0;
+
+        /* CEFDLT */
+        width: 40px;
     }
 </style>

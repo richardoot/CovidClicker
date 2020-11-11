@@ -1,5 +1,5 @@
 <template>
-    <b-col md="3" id="shop-container">
+    <b-col lg="3" sm="6" order-lg="3" id="shop-container" class="component-container">
         <h1 style="margin-top: 20px">Shop</h1>
         <b-row>
             <ShopPowers
@@ -33,13 +33,21 @@ export default {
 
 <style>
 
-#shop-container{
-    height: 94vh;
-    background-color: rgba(91,84,84, 0.5);
-    border-radius: 30px;
-    color: white;
-    margin: 0 0 0 30px;
-}
+    @media only screen and (min-width:992px) {
+        #shop-container{
+            margin: 0 0 0 30px;
+        }
+    }
+    @media only screen and (max-width:992px) and (min-width:576px){
+        #shop-container{
+            transform: translateX(7.5px);
+            margin-bottom: 10px;
+        }
+    }
+
+    #shop-container{
+        overflow: auto;
+    }
 
     .s-item{
        border-radius: 0px;

@@ -1,21 +1,14 @@
 <template>
   <div id="app">
     <div id="backbround_img"></div>
-    <b-container fluid>
-      <b-row align-h = "center" >
 
-        <Clicker 
-          v-on:addMalade="addMalade"
-          v-bind:nbMalades="nbMalades"
-        />
-				<Units
-          v-bind:items="items"
-        />
-				<Shop
-          v-bind:items="items"
-        />
+    <b-container fluid>
+  
+      <Navbar/>
+
+      <!-- Contenu du site -->
+      <router-view></router-view>
         
-      </b-row>
     </b-container>
 
   </div>
@@ -23,36 +16,14 @@
 
 <script>
 import store from "./store/store";
-import Clicker from './components/Clicker';
-import Units from './components/Units';
-import Shop from './components/Shop';
+import Navbar from "./components/Navbar"
+// import router from "../src/router/router";
+
 
 export default {
   name: 'App',
-  data: function(){
-      return {
-          items: [
-              {id: 0,     name: "Pangolin",             image:"pangolin-item.png"   },
-              {id: 1,     name: "Test défaillant",      image:"test-tube.png"       },
-              {id: 2,     name: "Cluster",              image:"cluster.png"         },
-              {id: 3,     name: "Fêtes de Bayonne",     image:"party.png"           }
-          ],
-      }
-  },
-  components: {
-    Clicker,
-    Units,
-    Shop
-  },
-  methods:{
-    addMalade: function(){
-      store.dispatch("addMaladeAction");
-    },
-  },
-  computed:{
-    nbMalades: function(){
-      return store.getters.getNbMalades;
-    },
+  components:{
+    Navbar,
   },
   mounted:function(){
     setInterval(() => {
@@ -70,7 +41,7 @@ export default {
   text-align: center;
   color: #2c3e50;
   background-color: rgb(29,29,29);
-  padding: 3vh;
+  padding: 7vh 3vh 3vh 3vh;
 }
 
 #backbround_img{
@@ -86,5 +57,19 @@ export default {
   background-size: 80%;
   opacity: 0.15;
 }
+
+.component-container{
+  height: 90vh;
+  background-color: rgba(91,84,84, 0.5);
+  border-radius: 30px;
+  color: white;
+}
+
+  @media only screen and (max-width:768px){
+    .component-container{
+      height: 70vh;
+      margin-bottom: 10px;
+    }
+  }
 
 </style>
