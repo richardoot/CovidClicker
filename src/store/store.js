@@ -10,17 +10,11 @@ export default new Vuex.Store({
             production_click: 1000000,
             production_per_sec:0,
             items:[
-                {id: 0,   price: 10,    number: 0,  coeff_price: 0.25,  production: 0.5  },
-                {id: 1,   price: 100,   number: 0,  coeff_price: 0.25,  production: 3    },
-                {id: 2,   price: 500,   number: 0,  coeff_price: 0.25,  production: 6    },
-                {id: 3,   price: 1000,  number: 0,  coeff_price: 0.25,  production: 12   },
+                {id: 0,   price: 10,    number: 0,  production: 0.5  },
+                {id: 1,   price: 100,   number: 0,  production: 3    },
+                {id: 2,   price: 1000,  number: 0,  production: 6    },
+                {id: 3,   price: 5000,  number: 0,  production: 12   },
             ],
-            // powers:[
-            //     {id: 0,   actif: false   },
-            //     {id: 1,   actif: false   },
-            //     {id: 2,   actif: false   },
-            //     {id: 3,   actif: false   },
-            // ]
         },
     },
     mutations: {
@@ -33,28 +27,28 @@ export default new Vuex.Store({
         addMaladeAuto(state){
             state.userData.nb_malades+=(state.userData.production_per_sec/10);
         },
-        // activePower(state, id){
-        //     state.userData.powers.forEach( power => {
-        //         if(power.id === id){
-        //             power.actif = true;
-        //         }
-        //     })
-        // },
         increaseProductionClick(state, coeff){
             state.userData.production_click*=coeff;
         },
+        updateProductionPerSec(state){
+            let somme = 0;
+            state.userData.items.forEach(item => {
+                somme += item.number*item.production;
+            });
+
+            state.userData.production_per_sec = somme;
+        },
+
+        /********* ITEM *********/
         increaseProductionItem(state, power){
             state.userData.items.forEach(i => {
                 if(i.id === power.item_id){
-                    console.log(i);
-                    console.log(i.production);
-                    console.log(power.coeff);
                     i.production*=power.coeff;
                 }
             });
         },
         updateItem(state,id){
-            let coeff_regression = 0.99;
+            let multiplicator = 1.2;
             let item = {};
             
             state.userData.items.forEach(current_item => {
@@ -66,18 +60,9 @@ export default new Vuex.Store({
             if(state.userData.nb_malades >= item.price){
                 state.userData.nb_malades -= item.price; //Déduit le prix
                 item.number++; //Incrémente le nombre
-                item.price*=(1+item.coeff_price);
-                item.coeff_price*=coeff_regression; //Augmenter l'inflation du prix
+                item.price*=multiplicator;
             }
             // console.log("Vous avez: " + state.items[id].number + " " + state.items[id].name + "s");
-        },
-        updateProductionPerSec(state){
-            let somme = 0;
-            state.userData.items.forEach(item => {
-                somme += item.number*item.production;
-            });
-
-            state.userData.production_per_sec = somme;
         },
     },
     actions: {
@@ -87,10 +72,6 @@ export default new Vuex.Store({
         removeMaladesAction: function(context, price){
             context.commit('removeMalades', price);
         },
-        // activePowerAction: function (context, id) {
-        //     console.log("Vous avez activé le pouvoir avec l'id : "+id);
-        //     context.commit("activePower",id);
-        // },
         increaseProductionClickAction: function(context, coeff){
             context.commit("increaseProductionClick",coeff);
         },
@@ -101,10 +82,6 @@ export default new Vuex.Store({
         addMaladeAutoAction: function(context){
             context.commit('addMaladeAuto');
         },
-        // acheterPowerAction: function(context,power){
-        //     context.commit("removeMalades",power.price);
-        //     context.commit("activePower",power.id);
-        // },
         acheterItemAction: function(context,id){
             context.commit('updateItem',id);
             context.commit('updateProductionPerSec');
@@ -119,9 +96,6 @@ export default new Vuex.Store({
         },
         getProductionPerSec: function (state) {
             return state.userData.production_per_sec;
-        },
-        getPowersActivities: function(state){
-            return state.userData.powers;
         },
         getItemsDynamicsValue: function(state){
             return state.userData.items;
