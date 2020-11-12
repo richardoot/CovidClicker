@@ -15,12 +15,12 @@ export default new Vuex.Store({
                 {id: 2,   price: 500,   number: 0,  coeff_price: 0.25,  production: 6    },
                 {id: 3,   price: 1000,  number: 0,  coeff_price: 0.25,  production: 12   },
             ],
-            powers:[
-                {id: 0,   actif: false   },
-                {id: 1,   actif: false   },
-                {id: 2,   actif: false   },
-                {id: 3,   actif: false   },
-            ]
+            // powers:[
+            //     {id: 0,   actif: false   },
+            //     {id: 1,   actif: false   },
+            //     {id: 2,   actif: false   },
+            //     {id: 3,   actif: false   },
+            // ]
         },
     },
     mutations: {
@@ -33,13 +33,13 @@ export default new Vuex.Store({
         addMaladeAuto(state){
             state.userData.nb_malades+=(state.userData.production_per_sec/10);
         },
-        activePower(state, id){
-            state.userData.powers.forEach( power => {
-                if(power.id === id){
-                    power.actif = true;
-                }
-            })
-        },
+        // activePower(state, id){
+        //     state.userData.powers.forEach( power => {
+        //         if(power.id === id){
+        //             power.actif = true;
+        //         }
+        //     })
+        // },
         increaseProductionClick(state, coeff){
             state.userData.production_click*=coeff;
         },
@@ -87,10 +87,10 @@ export default new Vuex.Store({
         removeMaladesAction: function(context, price){
             context.commit('removeMalades', price);
         },
-        activePowerAction: function (context, id) {
-            console.log("Vous avez activé le pouvoir avec l'id : "+id);
-            context.commit("activePower",id);
-        },
+        // activePowerAction: function (context, id) {
+        //     console.log("Vous avez activé le pouvoir avec l'id : "+id);
+        //     context.commit("activePower",id);
+        // },
         increaseProductionClickAction: function(context, coeff){
             context.commit("increaseProductionClick",coeff);
         },
@@ -101,10 +101,10 @@ export default new Vuex.Store({
         addMaladeAutoAction: function(context){
             context.commit('addMaladeAuto');
         },
-        acheterPowerAction: function(context,power){
-            context.commit("removeMalades",power.price);
-            context.commit("activePower",power.id);
-        },
+        // acheterPowerAction: function(context,power){
+        //     context.commit("removeMalades",power.price);
+        //     context.commit("activePower",power.id);
+        // },
         acheterItemAction: function(context,id){
             context.commit('updateItem',id);
             context.commit('updateProductionPerSec');
