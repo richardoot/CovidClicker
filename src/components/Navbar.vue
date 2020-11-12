@@ -23,6 +23,13 @@
         width: 41vw;
     }
 
+    @media only screen and (max-width:768px){
+        #covid-navbar{
+            height: 5vh;
+            width: 90vw;
+        }
+    }
+
     #elements-navbar{
         position: relative;
         left: 50%;

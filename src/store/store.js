@@ -10,10 +10,10 @@ export default new Vuex.Store({
             production_click: 1000000,
             production_per_sec:0,
             items:[
-                {id: 0,   price: 10,    number: 0,  coeffPrice: 0.25,  production: 0.5  },
-                {id: 1,   price: 100,   number: 0,  coeffPrice: 0.25,  production: 3    },
-                {id: 2,   price: 500,   number: 0,  coeffPrice: 0.25,  production: 6    },
-                {id: 3,   price: 1000,  number: 0,  coeffPrice: 0.25,  production: 12   },
+                {id: 0,   price: 10,    number: 0,  coeff_price: 0.25,  production: 0.5  },
+                {id: 1,   price: 100,   number: 0,  coeff_price: 0.25,  production: 3    },
+                {id: 2,   price: 500,   number: 0,  coeff_price: 0.25,  production: 6    },
+                {id: 3,   price: 1000,  number: 0,  coeff_price: 0.25,  production: 12   },
             ],
             powers:[
                 {id: 0,   actif: false   },
@@ -57,17 +57,17 @@ export default new Vuex.Store({
             let coeff_regression = 0.99;
             let item = {};
             
-            state.userData.items.forEach(i => {
-                if(i.id === id){
-                    item = i;
+            state.userData.items.forEach(current_item => {
+                if(current_item.id === id){
+                    item = current_item;
                 }
             });
 
             if(state.userData.nb_malades >= item.price){
                 state.userData.nb_malades -= item.price; //Déduit le prix
                 item.number++; //Incrémente le nombre
-                item.price*=(1+item.coeffPrice);
-                item.coeffPrice*=coeff_regression; //Augmenter l'inflation du prix
+                item.price*=(1+item.coeff_price);
+                item.coeff_price*=coeff_regression; //Augmenter l'inflation du prix
             }
             // console.log("Vous avez: " + state.items[id].number + " " + state.items[id].name + "s");
         },
@@ -82,7 +82,6 @@ export default new Vuex.Store({
     },
     actions: {
         addMaladeAction: function(context){
-            // console.log("Incrément du nombre de malades");
             context.commit('addMalade');
         },
         removeMaladesAction: function(context, price){
@@ -103,12 +102,10 @@ export default new Vuex.Store({
             context.commit('addMaladeAuto');
         },
         acheterPowerAction: function(context,power){
-            console.log("Updating...");
             context.commit("removeMalades",power.price);
             context.commit("activePower",power.id);
         },
         acheterItemAction: function(context,id){
-            console.log("Achat d'Item");
             context.commit('updateItem',id);
             context.commit('updateProductionPerSec');
         },
