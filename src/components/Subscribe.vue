@@ -3,22 +3,22 @@
     <div class="mx-auto mt-3" style="width: 300px; height: 100vh;color:white;">
       <div>
         <b-form v-on:submit.prevent="login">
-          <b-form-group label="Username :" label-for="username">
-            <b-form-input type="text" id="username" v-model="form.username"></b-form-input>
+          <b-form-group label="Email :" label-for="email">
+            <b-form-input type="text" id="email" v-model="form.username"></b-form-input>
+          </b-form-group>
+          <b-form-group label="Prénom :" label-for="prenom">
+            <b-form-input type="text" id="prenom" v-model="form.username"></b-form-input>
+          </b-form-group>
+          <b-form-group label="Nom :" label-for="nom">
+            <b-form-input type="text" id="nom" v-model="form.username"></b-form-input>
           </b-form-group>
           <b-form-group label="Password :" label-for="password">
             <b-form-input type="password" id="password" v-model="form.password"></b-form-input>
           </b-form-group>
           <b-form-group>
-            <b-button class="btn-info btn" type="submit" v-on:click="login">Se connecter</b-button>
+            <b-button class="btn-info btn" type="submit" v-on:click="login">S'inscrire</b-button>
           </b-form-group>
         </b-form>
-        <b-alert
-          variant="danger"
-          dismissible
-          :show="wrongPassword"
-          @dismissed="wrongPassword=false"
-        >Mauvais couple username/password</b-alert>
       </div>
     </div>
   </b-row>
@@ -67,14 +67,14 @@ export default {
       //   });
     }
   },
-  computed: {
-    // loggedIn: function() {
-    //   return store.getters.loggedIn;
-    // },
-    // username: function() {
-    //   return store.getters.username;
-    // }
-  }
+  // computed: {
+  //   loggedIn: function() {
+  //     return this.$store.getters.loggedIn;
+  //   },
+  //   username: function() {
+  //     return this.$store.getters.username;
+  //   }
+  // }
 };
 </script>
 

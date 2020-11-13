@@ -5,6 +5,7 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
     state: {
+        loggedIn: true,
         userData:{
             nb_malades:0, //nombre de malades
             production_click: 1000000,
@@ -18,6 +19,12 @@ export default new Vuex.Store({
         },
     },
     mutations: {
+        login: function(state){
+            state.loggedIn = true;
+        },
+        logout: function(state){
+            state.loggedIn = false;
+        },
         addMalade(state){
             state.userData.nb_malades+=state.userData.production_click;
         },
@@ -66,6 +73,12 @@ export default new Vuex.Store({
         },
     },
     actions: {
+        loginAction: function(context){
+            context.commit("login");
+        },
+        logoutAction: function(context){
+            context.commit("logout");
+        },
         addMaladeAction: function(context){
             context.commit('addMalade');
         },
@@ -88,6 +101,9 @@ export default new Vuex.Store({
         },
     },
     getters: {
+        getloggedIn: function(state){
+            return state.loggedIn;
+        },
         getNbMalades: function (state) {
             return state.userData.nb_malades;
         },

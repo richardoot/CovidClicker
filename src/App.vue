@@ -56,6 +56,7 @@ export default {
   background-position:center center;
   background-size: 80%;
   opacity: 0.15;
+  z-index: 0;
 }
 
 .component-container{
@@ -70,6 +71,11 @@ export default {
       height: 70vh;
       margin-bottom: 10px;
     }
+  }
+
+  .form-container{
+    position: relative;
+    z-index: 1;
   }
 
 </style>
