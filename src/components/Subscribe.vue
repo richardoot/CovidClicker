@@ -4,13 +4,13 @@
       <div>
         <b-form v-on:submit.prevent="login">
           <b-form-group label="Email :" label-for="email">
-            <b-form-input type="text" id="email" v-model="form.username"></b-form-input>
+            <b-form-input type="text" id="email" v-model="form.email"></b-form-input>
           </b-form-group>
           <b-form-group label="Prénom :" label-for="prenom">
-            <b-form-input type="text" id="prenom" v-model="form.username"></b-form-input>
+            <b-form-input type="text" id="prenom" v-model="form.prenom"></b-form-input>
           </b-form-group>
           <b-form-group label="Nom :" label-for="nom">
-            <b-form-input type="text" id="nom" v-model="form.username"></b-form-input>
+            <b-form-input type="text" id="nom" v-model="form.nom"></b-form-input>
           </b-form-group>
           <b-form-group label="Password :" label-for="password">
             <b-form-input type="password" id="password" v-model="form.password"></b-form-input>
@@ -29,16 +29,18 @@
 import store from "../store/store";
 import router from "../router/router";
 
-import sha256 from "js-sha256";
-// import axios from "axios";
+// import sha256 from "js-sha256";
+import axios from "axios";
 
 
 export default {
   data() {
     return {
       form: {
-        username: "",
-        password: ""
+        email: "",
+        password: "",
+        prenom: "",
+        nom: "",
       },
       wrongPassword: false
     };
@@ -48,23 +50,17 @@ export default {
       this.wrongPassword = false;
       const email = this.form.email;
       const password = this.form.password;
-      const hashedPassword = sha256(password);
-      store.dispatch("loginAction");
-      router.push({name: "Game"});
+      const prenom = this.form.prenom;
+      const nom = this.form.nom;
+      // const hashedPassword = sha256(password);
       
-      console.log(email+password+hashedPassword);
-      // axios
-      //   .post("http://localhost:3000/login", { email, hashedPassword })
-      //   .then(response => {
-      //     // Réaction après connection
-      //     // this.$store.dispatch("loginAction",email);
-      //     // console.log("l'état du login est : " +this.loggedIn);
-      //     // console.log(this.email);
-      //     router.push('/race');
-      //   })
-      //   .catch(error => {
-      //     this.wrongPassword = true;
-      //   });
+      axios
+        .post("http://localhost:3000/user", { email, password, nom, prenom})
+        .then(response => {
+          // Réaction après connection
+          store.dispatch("loginAction",response.data);
+          router.push({name: "Game"});
+        });
     }
   },
   // computed: {

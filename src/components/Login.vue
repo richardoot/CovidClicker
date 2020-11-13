@@ -3,8 +3,8 @@
     <div class="mx-auto mt-3" style="width: 300px; height: 100vh;color:white;">
       <div>
         <b-form v-on:submit.prevent="login">
-          <b-form-group label="Username :" label-for="username">
-            <b-form-input type="text" id="username" v-model="form.username"></b-form-input>
+          <b-form-group label="email :" label-for="email">
+            <b-form-input type="text" id="email" v-model="form.email"></b-form-input>
           </b-form-group>
           <b-form-group label="Password :" label-for="password">
             <b-form-input type="password" id="password" v-model="form.password"></b-form-input>
@@ -29,15 +29,15 @@
 import store from "../store/store";
 import router from "../router/router";
 
-import sha256 from "js-sha256";
-// import axios from "axios";
+// import sha256 from "js-sha256";
+import axios from "axios";
 
 
 export default {
   data() {
     return {
       form: {
-        username: "",
+        email: "",
         password: ""
       },
       wrongPassword: false
@@ -48,23 +48,20 @@ export default {
       this.wrongPassword = false;
       const email = this.form.email;
       const password = this.form.password;
-      const hashedPassword = sha256(password);
-      store.dispatch("loginAction");
-      router.push({name: "Game"});
+      // const hashedPassword = sha256(password);
       
-      console.log(email+password+hashedPassword);
-      // axios
-      //   .post("http://localhost:3000/login", { email, hashedPassword })
-      //   .then(response => {
-      //     // Réaction après connection
-      //     // this.$store.dispatch("loginAction",email);
-      //     // console.log("l'état du login est : " +this.loggedIn);
-      //     // console.log(this.email);
-      //     router.push('/race');
-      //   })
-      //   .catch(error => {
-      //     this.wrongPassword = true;
-      //   });
+      axios
+        .post("http://localhost:3000/login", { email, password })
+        .then(response => {
+          // Réaction après connection
+          console.log("The response is : %O", response.data);
+          store.dispatch("loginAction",response.data);
+          router.push({name: "Game"});
+        })
+        .catch(error => {
+          console.log(error);
+          this.wrongPassword = true;
+        });
     }
   },
   computed: {

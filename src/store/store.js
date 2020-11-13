@@ -5,21 +5,23 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
     state: {
-        loggedIn: true,
+        loggedIn: false,
         userData:{
             nb_malades:0, //nombre de malades
             production_click: 1000000,
             production_per_sec:0,
-            items:[
-                {id: 0,   price: 10,    number: 0,  production: 0.5  },
-                {id: 1,   price: 100,   number: 0,  production: 3    },
-                {id: 2,   price: 1000,  number: 0,  production: 6    },
-                {id: 3,   price: 5000,  number: 0,  production: 12   },
-            ],
         },
+        items:[
+            {id: 0,   price: 10,    number: 0,  production: 0.5  },
+            {id: 1,   price: 100,   number: 0,  production: 3    },
+            {id: 2,   price: 1000,  number: 0,  production: 6    },
+            {id: 3,   price: 5000,  number: 0,  production: 12   },
+        ],
     },
     mutations: {
-        login: function(state){
+        login: function(state,user){
+            state.userData=user;
+            console.log("The user data is : %O", state.userData);
             state.loggedIn = true;
         },
         logout: function(state){
@@ -39,7 +41,7 @@ export default new Vuex.Store({
         },
         updateProductionPerSec(state){
             let somme = 0;
-            state.userData.items.forEach(item => {
+            state.items.forEach(item => {
                 somme += item.number*item.production;
             });
 
@@ -48,7 +50,7 @@ export default new Vuex.Store({
 
         /********* ITEM *********/
         increaseProductionItem(state, power){
-            state.userData.items.forEach(i => {
+            state.items.forEach(i => {
                 if(i.id === power.item_id){
                     i.production*=power.coeff;
                 }
@@ -58,7 +60,7 @@ export default new Vuex.Store({
             let multiplicator = 1.2;
             let item = {};
             
-            state.userData.items.forEach(current_item => {
+            state.items.forEach(current_item => {
                 if(current_item.id === id){
                     item = current_item;
                 }
@@ -73,8 +75,8 @@ export default new Vuex.Store({
         },
     },
     actions: {
-        loginAction: function(context){
-            context.commit("login");
+        loginAction: function(context,user){
+            context.commit("login",user);
         },
         logoutAction: function(context){
             context.commit("logout");
@@ -114,7 +116,7 @@ export default new Vuex.Store({
             return state.userData.production_per_sec;
         },
         getItemsDynamicsValue: function(state){
-            return state.userData.items;
+            return state.items;
         },
     }
 });
