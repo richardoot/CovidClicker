@@ -25,7 +25,8 @@ export default {
     },
     computed:{
         items: function(){
-            return store.getters.getItems;
+            let items = store.getters.getItems.filter(currentItem => currentItem.number !== 0);
+            return items;
         }
     }
 }
