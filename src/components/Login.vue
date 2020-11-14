@@ -54,9 +54,8 @@ export default {
         .post("http://localhost:3000/login", { email, password })
         .then(response => {
           // Réaction après connection
-          console.log("The response is : %O", response.data);
-          store.dispatch("loginAction",response.data);
-          router.push({name: "Game"});
+            store.dispatch("loginAction",response.data);
+            router.push({name: "Game"});
         })
         .catch(error => {
           console.log(error);

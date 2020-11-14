@@ -21,8 +21,11 @@ export default new Vuex.Store({
     mutations: {
         login: function(state,user){
             state.userData=user;
-            console.log("The user data is : %O", state.userData);
             state.loggedIn = true;
+            if(user.items){
+                console.log("the item is : %j", user.items);
+                state.items=user.items;
+            }
         },
         logout: function(state){
             state.loggedIn = false;
