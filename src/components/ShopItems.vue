@@ -1,6 +1,6 @@
 <template>
     <b-col style="color: black;padding:10px">
-        <b-list-group id="item" v-for="item in addDynamicsValue()" :key="item.id">
+        <b-list-group id="item" v-for="item in items" :key="item.id">
             
             <b-list-group-item id="s-available" class="s-item" v-if="item.price <= nbMalades" button variant="success" v-on:click="acheterItem(item.id)">
                 {{item.name}}: {{arrondirValeur(item.number)}}
@@ -20,9 +20,6 @@
 import store from '../store/store';
 
 export default {
-    props:[
-        "items"
-    ],
     methods:{
         addDynamicsValue: function(){
             let dynamicItems = store.getters.getItemsDynamicsValue;
@@ -47,6 +44,9 @@ export default {
     computed:{
         nbMalades: function () {
             return store.getters.getNbMalades;
+        },
+        items: function(){
+            return store.getters.getItems;
         }
     },
 }

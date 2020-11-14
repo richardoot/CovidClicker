@@ -2,7 +2,7 @@
     <b-col lg="5" sm="12" order-lg="2" id="units-container" class="component-container">
         <h1 style="margin-top: 20px">Units</h1>
         <b-row>
-            <b-col id="units-single-container" cols="12" v-for="item in addDynamicsValue()" :key="item.id">
+            <b-col id="units-single-container" cols="12" v-for="item in items" :key="item.id">
                 <p style="text-align:left">{{item.name}}: {{item.number}}</p>
                 <template v-for="n in item.number">
                     <b-img :style="`top:${25+((n-1)%5)*20}px;left:${(6*n)+10}px`" :key="n" :id="`unit-image`" :src="require(`@/assets/${item.image}`)"></b-img>
@@ -20,26 +20,13 @@
 import store from "../store/store";
 
 export default {
-    props: [
-        "items"
-    ],
     methods:{
-        addDynamicsValue: function(){
-            let dynamicItems = store.getters.getItemsDynamicsValue;
-            this.items.forEach( item => {
-                dynamicItems.forEach( dynamicItem => {
-                    if(item.id === dynamicItem.id){
-                        item.price = dynamicItem.price;
-                        item.number = dynamicItem.number;
-                    }
-                })
-            });
-
-            return this.items.filter(item => item.number>0);
-        },
+        
     },
     computed:{
-        
+        items: function(){
+            return store.getters.getItems;
+        }
     }
 }
 </script>

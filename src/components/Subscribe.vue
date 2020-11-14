@@ -19,6 +19,12 @@
             <b-button class="btn-info btn" type="submit" v-on:click="login">S'inscrire</b-button>
           </b-form-group>
         </b-form>
+        <b-alert
+          variant="danger"
+          dismissible
+          :show="duplicationEmail"
+          @dismissed="duplicationEmail=false"
+        >Ce mail est déjà utilisé</b-alert>
       </div>
     </div>
   </b-row>
@@ -42,12 +48,12 @@ export default {
         prenom: "",
         nom: "",
       },
-      wrongPassword: false
+      duplicationEmail: false
     };
   },
   methods: {
-    login: function(/*event*/) {
-      this.wrongPassword = false;
+    login: function() {
+      this.duplicationEmail = false;
       const email = this.form.email;
       const password = this.form.password;
       const prenom = this.form.prenom;
@@ -58,19 +64,17 @@ export default {
         .post("http://localhost:3000/user", { email, password, nom, prenom})
         .then(response => {
           // Réaction après connection
+          console.log(response);
           store.dispatch("loginAction",response.data);
           router.push({name: "Game"});
+        })
+        .catch(error => {
+          console.log(error);
+          this.duplicationEmail = true;
+          
         });
     }
   },
-  // computed: {
-  //   loggedIn: function() {
-  //     return this.$store.getters.loggedIn;
-  //   },
-  //   username: function() {
-  //     return this.$store.getters.username;
-  //   }
-  // }
 };
 </script>
 

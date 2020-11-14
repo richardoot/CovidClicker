@@ -2,14 +2,10 @@
     <b-col lg="3" sm="6" order-lg="3" id="shop-container" class="component-container">
         <h1 style="margin-top: 20px">Shop</h1>
         <b-row>
-            <ShopPowers
-                v-bind:items="items"
-            />
+            <ShopPowers/>
         </b-row>
         <b-row>
-            <ShopItems
-                v-bind:items="items"
-            />
+            <ShopItems/>
         </b-row>
     </b-col>
 </template>
@@ -21,9 +17,6 @@ import ShopItems from "../components/ShopItems";
 import ShopPowers from "../components/ShopPowers"; 
 
 export default {
-    props:[
-        "items"
-    ],
     components:{
         ShopItems,
         ShopPowers

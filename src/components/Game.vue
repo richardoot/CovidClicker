@@ -4,12 +4,8 @@
           v-on:addMalade="addMalade"
           v-bind:nbMalades="nbMalades"
         />
-        <Shop
-          v-bind:items="items"
-        />
-        <Units
-          v-bind:items="items"
-        />
+        <Shop/>
+        <Units/>
     </b-row>
 </template>
 
@@ -24,16 +20,6 @@ export default {
         Clicker,
         Units,
         Shop
-    },
-    data: function(){
-        return {
-            items: [
-                {id: 0,     name: "Pangolin",             image:"pangolin-item.png"   },
-                {id: 1,     name: "Test défaillant",      image:"test-tube.png"       },
-                {id: 2,     name: "Cluster",              image:"cluster.png"         },
-                {id: 3,     name: "Fêtes de Bayonne",     image:"party.png"           }
-            ],
-        }
     },
     methods:{
         addMalade: function(){

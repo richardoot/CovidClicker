@@ -16,11 +16,17 @@
 <script>
 import store from "../store/store";
 import router from "../router/router";
+import axios from 'axios';
 
 export default {
     methods:{
         logout: function(){
             console.log("Logout ...");
+            axios
+            .patch(`http://localhost:3000/user/${this.userData.id}`,this.userData)
+            .then(response => {
+                console.log(response);
+            });
             store.dispatch("logoutAction");
             router.push({name: "Home"});
         },
@@ -28,6 +34,9 @@ export default {
     computed:{
         loggedIn: function(){
             return store.getters.getloggedIn;
+        },
+        userData: function(){
+            return store.getters.getUserData;
         }
     },
 }
