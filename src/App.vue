@@ -28,6 +28,7 @@ export default {
   mounted:function(){
     setInterval(() => {
       store.dispatch('addMaladeAutoAction');
+      /* Faire sauvegarde des données */
     }, 100);
   },
 }

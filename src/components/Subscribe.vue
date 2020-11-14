@@ -64,14 +64,17 @@ export default {
         .post("http://localhost:3000/user", { email, password, nom, prenom})
         .then(response => {
           // Réaction après connection
-          console.log(response);
+          console.log("LOGIN");
+          console.log("LOGIN");
+          console.log("LOGIN");
+          console.log(response.data);
           store.dispatch("loginAction",response.data);
           router.push({name: "Game"});
         })
         .catch(error => {
           console.log(error);
           this.duplicationEmail = true;
-          
+
         });
     }
   },

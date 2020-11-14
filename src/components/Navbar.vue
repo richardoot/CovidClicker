@@ -22,6 +22,8 @@ export default {
     methods:{
         logout: function(){
             console.log("Logout ...");
+            this.userData.items = this.items;
+            this.userData.powers = this.powers;
             axios
             .patch(`http://localhost:3000/user/${this.userData.id}`,this.userData)
             .then(response => {
@@ -37,6 +39,12 @@ export default {
         },
         userData: function(){
             return store.getters.getUserData;
+        },
+        items: function(){
+            return store.getters.getItems;
+        },
+        powers: function(){
+            return store.getters.getPowers;
         }
     },
 }

@@ -12,17 +12,17 @@ export default new Vuex.Store({
             production_per_sec:0,
         },
         items:[
-            {id: 0,   price: 10,    number: 0,  production: 0.5,      name: "Pangolin",             image:"pangolin-item.png"   },
-            {id: 1,   price: 100,   number: 0,  production: 3,        name: "Test défaillant",      image:"test-tube.png"       },
-            {id: 2,   price: 1000,  number: 0,  production: 6,        name: "Cluster",              image:"cluster.png"         },
-            {id: 3,   price: 5000,  number: 0,  production: 12,       name: "Fêtes de Bayonne",     image:"party.png"           },
+            // {id: 0,   price: 10,    number: 0,  production: 0.5,      name: "Pangolin",             image:"pangolin-item.png"   },
+            // {id: 1,   price: 100,   number: 0,  production: 3,        name: "Test défaillant",      image:"test-tube.png"       },
+            // {id: 2,   price: 1000,  number: 0,  production: 6,        name: "Cluster",              image:"cluster.png"         },
+            // {id: 3,   price: 5000,  number: 0,  production: 12,       name: "Fêtes de Bayonne",     image:"party.png"           },
         ],
         powers: [
-            {id: 0, name: "Double Clicker",                     price: 100,       coeff: 2,    item_id: null,   actif: false   },
-            {id: 1, name: "Double Production Pangolin",         price: 1000,     coeff: 2,    item_id: 0,      actif: false   },
-            {id: 2, name: "Double Production des faux tests",   price: 5000,     coeff: 2,    item_id: 1,      actif: false   },
-            {id: 3, name: "Double Production Cluster",          price: 10000,     coeff: 2,    item_id: 2,      actif: false   },
-            {id: 4, name: "Double Alcool Fêtes de Bayonne",     price: 50000,    coeff: 2,    item_id: 3,      actif: false   }
+            // {id: 0, name: "Double Clicker",                     price: 100,       coeff: 2,    item_id: null,   actif: false   },
+            // {id: 1, name: "Double Production Pangolin",         price: 1000,     coeff: 2,    item_id: 0,      actif: false   },
+            // {id: 2, name: "Double Production des faux tests",   price: 5000,     coeff: 2,    item_id: 1,      actif: false   },
+            // {id: 3, name: "Double Production Cluster",          price: 10000,     coeff: 2,    item_id: 2,      actif: false   },
+            // {id: 4, name: "Double Alcool Fêtes de Bayonne",     price: 50000,    coeff: 2,    item_id: 3,      actif: false   }
         ] // ensemble des pouvoirs
     },
     mutations: {
@@ -34,16 +34,21 @@ export default new Vuex.Store({
             state.userData=user;
             console.log("UserData is : %j", state.userData);
             state.loggedIn = true;
+            console.log(items);
             if(items){
                 console.log("Items is : %j", items);
                 state.items=items;
             }
             if(powers){
                 console.log("Powers is : %j", powers);
-                state.items=powers;
+                state.powers=powers;
+                console.log(state.powers);
             }
         },
         logout: function(state){
+            state.userData = {};
+            state.items = [];
+            state.powers = [];
             state.loggedIn = false;
         },
         addMalade(state){
