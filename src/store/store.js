@@ -27,12 +27,20 @@ export default new Vuex.Store({
     },
     mutations: {
         login: function(state,user){
+            let items = user.items;
+            let powers = user.powers;
+            delete user.items;
+            delete user.powers;
             state.userData=user;
             console.log("UserData is : %j", state.userData);
             state.loggedIn = true;
-            if(user.items){
-                console.log("Items is : %j", state.items);
-                state.items=user.items;
+            if(items){
+                console.log("Items is : %j", items);
+                state.items=items;
+            }
+            if(powers){
+                console.log("Powers is : %j", powers);
+                state.items=powers;
             }
         },
         logout: function(state){
