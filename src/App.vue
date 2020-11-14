@@ -17,6 +17,7 @@
 <script>
 import store from "./store/store";
 import Navbar from "./components/Navbar"
+import axios from 'axios';
 // import router from "../src/router/router";
 
 
@@ -28,9 +29,33 @@ export default {
   mounted:function(){
     setInterval(() => {
       store.dispatch('addMaladeAutoAction');
-      /* Faire sauvegarde des données */
+      /* Faire sauvegarde des données automatique --> appel la fonction patch avec axios */
+      if(this.loggedIn){
+        this.userData.items = this.items;
+        this.userData.powers = this.powers;
+        this.userData.date_update = Math.floor(Date.now()/1000);
+        axios
+        .patch(`http://localhost:3000/user/${this.userData.id}`,this.userData)
+        .then(response => {
+            console.log(response);
+        });
+      }
     }, 100);
   },
+    computed:{
+        loggedIn: function(){
+            return store.getters.getloggedIn;
+        },
+        userData: function(){
+            return store.getters.getUserData;
+        },
+        items: function(){
+            return store.getters.getItems;
+        },
+        powers: function(){
+            return store.getters.getPowers;
+        }
+    },
 }
 </script>
 

@@ -24,6 +24,7 @@ export default {
             console.log("Logout ...");
             this.userData.items = this.items;
             this.userData.powers = this.powers;
+            this.userData.date_update = Math.floor(Date.now()/1000);
             axios
             .patch(`http://localhost:3000/user/${this.userData.id}`,this.userData)
             .then(response => {

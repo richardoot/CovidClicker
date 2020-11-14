@@ -54,7 +54,10 @@ export default {
         .post("http://localhost:3000/login", { email, password })
         .then(response => {
           // Réaction après connection
-            store.dispatch("loginAction",response.data);
+          let user = response.data;
+            let secondes_depuis_dernier_connexion = Math.floor(Date.now()/1000)-user.date_update;
+            user.nb_malades+= user.production_per_sec*secondes_depuis_dernier_connexion;
+            store.dispatch("loginAction",user);
             router.push({name: "Game"});
         })
         .catch(error => {
